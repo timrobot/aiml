@@ -5,7 +5,7 @@ import random
 import dataset
 import matplotlib.pyplot as plt
 
-lap_smooth = 25
+lap_smooth = 0
 
 
 def str2img(s):
@@ -181,7 +181,7 @@ def validation(prediction, actual, if_digit):
         else:
             num_unique = 2
 
-        conf_matrix = np.zeros((10,10))
+        conf_matrix = np.zeros((num_unique,num_unique))
         correct = 0
         
         for i in range(len(prediction)):
@@ -279,7 +279,6 @@ if __name__== "__main__":
         #   Validation
 #            print "Validating Predictions"
             confusion, accuracy = validation(predict, testlabels, SOBEL_USE)
-
             tmp_acc += accuracy
 
 
