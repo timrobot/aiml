@@ -1,11 +1,11 @@
 import numpy as np
 import math
 import sys
+import random
 import dataset
 import matplotlib.pyplot as plt
 
-
-lap_smooth = 0
+lap_smooth = 25
 
 
 def str2img(s):
@@ -64,7 +64,6 @@ def sobel_filter(data, img_dim):
 
                 Gx = convolve(X, A) 
                 Gy = convolve(Y, A)
-#                G  = math.sqrt(Gx**2 + Gy**2)
                 D = np.arctan2(Gy, Gx)
                 new_entry[0, count] = D
                 count += 1
@@ -171,18 +170,28 @@ def prediction(data, data_labels, prior_est, prob_table):
 #    print prediction
     return logprob_pred, prediction
 
-def validation(prediction, actual):
+def validation(prediction, actual, if_digit):
     
     if len(prediction) != len(actual):
         print "The number of predictions do not match the actual number of entries"
 
     else:
+        if if_digit == 1:
+            num_unique = 10
+        else:
+            num_unique = 2
+
+        conf_matrix = np.zeros((10,10))
         correct = 0
+        
         for i in range(len(prediction)):
+            conf_matrix[prediction[i]][actual[i]] += 1
             if prediction[i] == actual[i]:
                 correct += 1
-    
-        print float(correct) / float(len(prediction)) * 100
+
+        accuracy = float(correct) / float(len(actual)) * 100
+
+        return conf_matrix, accuracy
 
 
 if __name__== "__main__":
@@ -191,57 +200,91 @@ if __name__== "__main__":
         sys.exit(1)
    
     if sys.argv[1][:4] == "face":
-        SOBEL_USE = 1
-    else:
         SOBEL_USE = 0
-
-#   Importing Training Data
-    print "Importing Training Data"
-    # Gets the data, labels and classes of the data and label files
-    data, labels, classes = dataset.opendata(sys.argv[1], sys.argv[2])
-
-    data = map(lambda s: str2img(s), data)
-    img_dim = (len(data[0]), len(data[0][0]))
-    data = map(lambda s: np.reshape(s, s.shape[0] * s.shape[1], 1), data)
-    data = np.matrix(data)
-    labels = np.matrix(labels).T
-
-#   Applying Sobel Filter for Edge Detection
-
-    if SOBEL_USE == 1:
-        print "Applying Sobel Filter"
-        data = sobel_filter(data, img_dim)
     else:
-        print "Skipping Sobel Filter"
+        SOBEL_USE = 1
 
-#   Prior Distribution
-    print "Calculating Prior Distribution"
-    param_est = labels_estimate(labels)
+    train_accuracy = []
+    confusion_matrix = []
+    for train_percent in range(10, 101, 10):
+        print train_percent
+        print
+        tmp_acc = 0
 
-#   Log Joint Probability Tables
-    print "Computing Log Joint Prob Tables"
-    joint_tables = compute_jointprobtable(data, labels, param_est)
-    
-#   Importing Test Data
-    print "Importing Test Data"
-    testdata, testlabels, testclasses = dataset.opendata(sys.argv[3], sys.argv[4])
+        for j in range(10):
+        #   Importing Training Data
+#            print "Importing Training Data"
+            # Gets the data, labels and classes of the data and label files
+            data, labels, classes = dataset.opendata(sys.argv[1], sys.argv[2])
+        
+            data = map(lambda s: str2img(s), data)
+            img_dim = (len(data[0]), len(data[0][0]))
+            data = map(lambda s: np.reshape(s, s.shape[0] * s.shape[1], 1), data)
+            data = np.matrix(data)
+            labels = np.matrix(labels).T
+        
+        #   Extracting Training Data
+        
+            train_labels = []
+            random.seed()
+        
+            for i in range(len(data)):
+                if int(math.floor(100 * random.random())) <= train_percent:
+                    train_labels.append(1)
+                else:
+                    train_labels.append(0)
+            
+            train_labels = np.array(train_labels)
+            data = data[train_labels == 1]
+            labels = labels[train_labels == 1]
+        
+        #   Applying Sobel Filter for Edge Detection
+        
+            if SOBEL_USE == 2:
+#                print "Applying Sobel Filter"
+                data = sobel_filter(data, img_dim)
+            else:
+                pass
+#                print "Skipping Sobel Filter"
+        
+        #   Prior Distribution
+#            print "Calculating Prior Distribution"
+            param_est = labels_estimate(labels)
+        
+        #   Log Joint Probability Tables
+#            print "Computing Log Joint Prob Tables"
+            joint_tables = compute_jointprobtable(data, labels, param_est)
+            
+        #   Importing Test Data
+#            print "Importing Test Data"
+            testdata, testlabels, testclasses = dataset.opendata(sys.argv[3], sys.argv[4])
+        
+            testdata = map(lambda s: str2img(s), testdata)
+            testdata = map(lambda s: np.reshape(s, s.shape[0] * s.shape[1], 1), testdata)
+            testdata = np.matrix(testdata)
+            testlabels = np.matrix(testlabels).T
+        
+        #   Apply Sobel Filter for Edge Detection
+            if SOBEL_USE == 2:
+#                print "Applying Sobel Filter"
+                testdata = sobel_filter(testdata, img_dim)
+            else:
+                pass
+#                print "Skipping Sobel Filter"
+            
+        #   Prediction
+#            print "Making Predictions"
+            logprob, predict = prediction(testdata, testlabels, param_est, joint_tables)
+        
+        #   Validation
+#            print "Validating Predictions"
+            confusion, accuracy = validation(predict, testlabels, SOBEL_USE)
 
-    testdata = map(lambda s: str2img(s), testdata)
-    testdata = map(lambda s: np.reshape(s, s.shape[0] * s.shape[1], 1), testdata)
-    testdata = np.matrix(testdata)
-    testlabels = np.matrix(testlabels).T
+            tmp_acc += accuracy
 
-#   Apply Sobel Filter for Edge Detection
-    if SOBEL_USE == 1:
-        print "Applying Sobel Filter"
-        testdata = sobel_filter(testdata, img_dim)
-    else:
-        print "Skipping Sobel Filter"
-    
-#   Prediction
-    print "Making Predictions"
-    logprob, prediction = prediction(testdata, testlabels, param_est, joint_tables)
 
-#   Validation
-    print "Validating Predictions"
-    validation(prediction, testlabels)
+        train_accuracy.append(tmp_acc / 10.0)
+        confusion_matrix.append(confusion)
+
+    print confusion_matrix
+    print train_accuracy
