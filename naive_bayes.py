@@ -2,6 +2,7 @@ import numpy as np
 import math
 import sys
 import random
+import time
 import dataset
 import matplotlib.pyplot as plt
 
@@ -204,17 +205,21 @@ if __name__== "__main__":
     else:
         SOBEL_USE = 1
 
+    timings = []
     train_accuracy = []
     confusion_matrix = []
     for train_percent in range(10, 101, 10):
         print train_percent
         print
+        acc_list = []
+        time_list = []
         tmp_acc = 0
 
         for j in range(10):
         #   Importing Training Data
 #            print "Importing Training Data"
             # Gets the data, labels and classes of the data and label files
+
             data, labels, classes = dataset.opendata(sys.argv[1], sys.argv[2])
         
             data = map(lambda s: str2img(s), data)
@@ -222,7 +227,9 @@ if __name__== "__main__":
             data = map(lambda s: np.reshape(s, s.shape[0] * s.shape[1], 1), data)
             data = np.matrix(data)
             labels = np.matrix(labels).T
-        
+       
+            
+            start_time = time.time()
         #   Extracting Training Data
         
             train_labels = []
@@ -255,6 +262,7 @@ if __name__== "__main__":
 #            print "Computing Log Joint Prob Tables"
             joint_tables = compute_jointprobtable(data, labels, param_est)
             
+            end_time = time.time()
         #   Importing Test Data
 #            print "Importing Test Data"
             testdata, testlabels, testclasses = dataset.opendata(sys.argv[3], sys.argv[4])
@@ -279,11 +287,17 @@ if __name__== "__main__":
         #   Validation
 #            print "Validating Predictions"
             confusion, accuracy = validation(predict, testlabels, SOBEL_USE)
-            tmp_acc += accuracy
+            acc_list.append(accuracy)
+            time_list.append(end_time - start_time)
 
 
-        train_accuracy.append(tmp_acc / 10.0)
+        timings.append(time_list)
+        train_accuracy.append(acc_list)
         confusion_matrix.append(confusion)
 
-    print confusion_matrix
+    print "CONFUSION MATIRX\n\n"
+    print confusion_matrix[-1]
+    print "\n\n TRAINING ACCURACY\n\n"
     print train_accuracy
+    print "\n\n TIMINGS \n\n"
+    print timings
