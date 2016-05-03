@@ -54,7 +54,7 @@ void class_err(mat X, mat y, mat thetas, double &conf, double &err) {
 	for (int i = 0; i < m; i++) {
 		double _ = fx.row(i).max(k(i));
 		Y(i) = (uword)round(y(i,0));
-		printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
+		//printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
 		//showimage(_X.row(i).t());
 	}
 	conf = sum(k == Y) / (double)m;

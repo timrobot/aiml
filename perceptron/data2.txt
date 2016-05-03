@@ -1,0 +1,130 @@
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 10
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 217.967634 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 20
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 197.399159 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 30
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 215.700492 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 40
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 215.925465 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 50
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 211.076922 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 60
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 218.140379 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 70
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 217.458416 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 80
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 219.486192 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 90
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 224.748770 seconds
+params: ../facedata/facedatatrain ../facedata/facedatatrainlabels ../facedata/facedatatest ../facedata/facedatatestlabels 100
+load the matrices
+Training data...
+Training 0
+Training 1
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 98.000000/100, err: 2.000000/100
+1.0000        0
+0.0370   0.9630
+
+Time taken: 224.360611 seconds

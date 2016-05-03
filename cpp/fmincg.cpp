@@ -108,7 +108,7 @@ void fmincg2(
 		
 		cost2 = 10000.0;
 		static int iter;
-		printf(color_yellow("Iteration #%d.1\n"), iter);
+		//printf(color_yellow("Iteration #%d.1\n"), iter);
 		costfunction(cost2, gradient2, nn_params);//, input_layer_size, hidden_layer_size, num_labels, inputdata, y, lambda);
 		
 		//i = i + (length<0);
@@ -150,7 +150,7 @@ void fmincg2(
                 stemp = point2 * search_direction;
                 nn_params = nn_params + stemp;
 
-								printf(color_yellow("Iteration #%d.2\n"), iter);
+								//printf(color_yellow("Iteration #%d.2\n"), iter);
                 costfunction(cost2, gradient2, nn_params);//, input_layer_size, hidden_layer_size, num_labels, inputdata, y, lambda);
 
                 M = M - 1.0;
@@ -214,7 +214,7 @@ void fmincg2(
             nn_params = nn_params + stemp;                       // update current estimates
 			//std::cout << "nn_paramsb: " << endl << nn_params.rows(0,10) << endl;
 
-						printf(color_yellow("Iteration #%d.3\n"), iter);
+						//printf(color_yellow("Iteration #%d.3\n"), iter);
             costfunction(cost2, gradient2, nn_params);//, input_layer_size, hidden_layer_size, num_labels, inputdata, y, lambda);
 			//std::cout << "cost2b: " << cost2 << endl;
             M = M - 1.0;

@@ -1,0 +1,290 @@
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 10
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 37.874149 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 20
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 33.238144 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 30
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 33.376406 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 40
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 33.262255 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 50
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 36.923938 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 60
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 32.403594 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 70
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 27.620649 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 80
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 32.254830 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 90
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 35.648309 seconds
+params: ../digitdata/trainingimages ../digitdata/traininglabels ../digitdata/testimages ../digitdata/testlabels 100
+load the matrices
+Training data...
+Training 0
+Training 1
+Training 2
+Training 3
+Training 4
+Training 5
+Training 6
+Training 7
+Training 8
+Training 9
+Training finished!
+Testing the training...
+Testing finished!
+Conf: 75.800000/100, err: 24.200000/100
+0.9512        0        0        0   0.0244        0        0        0   0.0244        0
+0   1.0000        0        0        0        0        0        0        0        0
+0.0179   0.1250   0.6429   0.0357        0        0   0.1429   0.0179   0.0179        0
+0   0.0426        0   0.7021   0.0213   0.0638   0.0213   0.0638   0.0213   0.0638
+0   0.0175        0        0   0.9123        0   0.0175        0        0   0.0526
+0.0600   0.0200        0   0.0400   0.0400   0.6200   0.0200   0.0400   0.0800   0.0800
+0.0455   0.0227   0.0455        0   0.0455   0.0455   0.7500        0   0.0455        0
+0   0.0784        0        0   0.0980        0        0   0.6275   0.0392   0.1569
+0.0196   0.0784   0.0392        0   0.0392   0.0588   0.0392   0.0196   0.6275   0.0784
+0.0400        0        0        0   0.1400        0        0   0.0600        0   0.7600
+
+Time taken: 33.479880 seconds

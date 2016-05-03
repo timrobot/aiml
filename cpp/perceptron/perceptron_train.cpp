@@ -2,6 +2,8 @@
 
 using namespace arma;
 
+int num_labels;
+
 vec normal_eqn(mat X, vec y) {
   double m = (double)(int)y.n_rows;
   vec theta = pinv(X.t() * X) * X.t() * y;
@@ -43,7 +45,7 @@ vec linreg_train(mat X, vec y, double &err) {
   return theta;
 }
 
-void class_err(mat X, vec y, mat thetas, double &conf, double &err) {
+mat class_err(mat X, vec y, mat thetas, double &conf, double &err) {
   int m = (int)y.n_rows;
   mat fx = join_rows(ones<mat>(m), X) * thetas;
   uvec k(m);
@@ -51,11 +53,16 @@ void class_err(mat X, vec y, mat thetas, double &conf, double &err) {
   for (int i = 0; i < (int)m; i++) {
     double _ = fx.row(i).max(k(i));
     Y(i) = (uword)round(y(i));
-		printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
+		//printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
 		//showimage(_X.row(i).t());
   }
 	conf = sum(k == Y) / (double)m;
   err = 1 - conf;
+	mat confusion(num_labels, num_labels, fill::zeros);
+	for (int i = 0; i < m; i++) {
+		confusion(Y(i), k(i)) += 1.0;
+	}
+	return confusion / repmat(sum(confusion, 1), 1, num_labels);
 }
 
 mat loadmat(std::string filename) {
@@ -84,15 +91,34 @@ void showimage(vec I) {
 	disp_wait();
 }
 
+static double secdiff(struct timeval &t1, struct timeval &t2) {
+	double usec = (double)(t2.tv_usec - t1.tv_usec) / 1000000.0;
+	double sec = (double)(t2.tv_sec - t1.tv_sec);
+	return sec + usec;
+}
+
 int main(int argc, char *argv[]) {
-  if (argc != 5) {
-    printf("usage: %s train_data train_labels test_data test_labels\n", argv[0]);
+  if (argc != 6) {
+    printf("usage: %s train_data train_labels test_data test_labels percent_data_use\n", argv[0]);
     return 0;
+	} else {
+		printf(color_cyan("params: %s %s %s %s %s\n"),
+					argv[1],
+					argv[2],
+					argv[3],
+					argv[4],
+					argv[5]);
   }
+	srand(getpid());
+	// start timer
+	struct timeval start;
+	gettimeofday(&start, NULL);
+
 	print_green("load the matrices\n");
 	mat X, Y;
 	int classes;
-	opendata(X, Y, classes , argv[1], argv[2]);
+	opendata(X, Y, classes, argv[1], argv[2]);
+	num_labels = classes;
   vec y = Y.col(0);
 	print_green("Training data...\n");
   X = join_rows(ones<vec>(X.n_rows), X);
@@ -110,8 +136,15 @@ int main(int argc, char *argv[]) {
 	opendata(X, Y, classes, argv[3], argv[4]);
 	y = Y.col(0);
   double conf, err;
-  class_err(X, y, thetas, conf, err);
+  mat confusion = class_err(X, y, thetas, conf, err);
 	print_green("Testing finished!\n");
   printf(color_yellow("Conf: %lf/100, err: %lf/100\n"), conf * 100, err * 100);
+	cout << confusion << endl;
+
+	struct timeval end;
+	gettimeofday(&end, NULL);
+	double seconds = secdiff(start, end);
+	printf(color_magenta("Time taken: %lf seconds\n"), seconds);
+
   return 0;
 }

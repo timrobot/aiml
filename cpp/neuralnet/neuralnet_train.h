@@ -12,6 +12,7 @@
 #include "highgui.h"
 #include "imgproc.h"
 #include "dataset.h"
+#include <ctime>
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -41,7 +42,7 @@ mat sigmoid(mat z);
 mat sigmoidGradient(mat z);
 void nnCostFunction(double &J, mat &grad, mat &nn_params);
 vector<mat> nntrain(mat X, mat y, vector<mat> thetas, vec dims, double lambda = 0.1, int max_iter = 200);
-void class_err(mat X, mat y, mat thetas, double &conf, double &err);
+mat class_err(mat X, mat y, mat thetas, double &conf, double &err);
 mat loadmat(std::string filename);
 mat loadcsv(string filename, int n_rows, int n_cols);
 void showimage(vec I);

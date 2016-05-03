@@ -40,7 +40,7 @@ double cost(mat X, vec y, vec theta);
 vec grad_descent(mat X, vec y, vec theta, double alpha, int niter, std::vector<double> &costs, double lambda);
 double regcost(mat X, vec y, vec theta, double lambda);
 vec linreg_train(mat X, vec y, double &err);
-void class_err(mat X, mat y, mat thetas, double &conf, double &err);
+mat class_err(mat X, mat y, mat thetas, double &conf, double &err);
 mat loadmat(std::string filename);
 
 #endif

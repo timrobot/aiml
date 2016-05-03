@@ -5,6 +5,29 @@ mat _X, _y;
 double _lambda;
 vec dimensions;
 
+/** Select a random permutation of datapoints
+ *  @param X the input data
+ *  @param y the labels
+ *  @param n the number of datapoints
+ *  @param outX (output) the selected inputs data
+ *  @param outy (output) the selected labels
+ */
+void randselect(mat X, mat y, int n, mat &outX, mat &outy) {
+	vector<int> indeces;
+	for (int i = 0; i < (int)X.n_rows; i++) {
+		indeces.push_back(i);
+	}
+	random_shuffle(indeces.begin(), indeces.end());
+	mat _X_ = X;
+	mat _y_ = y;
+	outX = mat(n, X.n_cols);
+	outy = mat(n, 1);
+	for (int i = 0; i < n; i++) {
+		outX.row(i) = _X_.row(indeces[i]);
+		outy.row(i) = _y_.row(indeces[i]);
+	}
+}
+
 /** Initialize a bunch of random matrices
  *  @param sizes a vector containing sequential sizes of dimensions. 
  *		for example: vec({ 12, 3, 2 }) will create a 12x3 and 3x2 matrices
@@ -134,7 +157,7 @@ vector<mat> nntrain(mat X, mat y, vector<mat> thetas, double lambda, int max_ite
  *  @param conf (output) the confidence of the parameters
  *  @param err (output) the error of the parameters
  */
-void class_err(mat X, mat y, vector<mat> thetas, double &conf, double &err) {
+mat class_err(mat X, mat y, vector<mat> thetas, double &conf, double &err) {
 	_X = X; // this is only for displaying the images
 	int m = (int)y.n_rows;
 	int n = (int)y.n_cols;
@@ -147,11 +170,16 @@ void class_err(mat X, mat y, vector<mat> thetas, double &conf, double &err) {
 	for (int i = 0; i < m; i++) {
 		double _ = a2.row(i).max(k(i));
 		Y(i) = (uword)round(y(i,0));
-		printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
+		//printf(color_cyan("Class: %llu, Prediction: %llu\n"), Y(i), k(i));
 		//showimage(_X.row(i).t());
 	}
 	conf = sum(k == Y) / (double)m;
 	err = 1 - conf;
+	mat confusion(dimensions(2), dimensions(2), fill::zeros);
+	for (int i = 0; i < m; i++) {
+		confusion(Y(i), k(i)) += 1.0;
+	}
+	return confusion / repmat(sum(confusion, 1), 1, dimensions(2));
 }
 
 mat loadmat(string filename) {
@@ -209,12 +237,32 @@ void showimage(vec I) {
 	disp_wait();
 }
 
+static double secdiff(struct timeval &t1, struct timeval &t2) {
+	double usec = (double)(t2.tv_usec - t1.tv_usec) / 1000000.0;
+	double sec = (double)(t2.tv_sec - t1.tv_sec);
+	return sec + usec;
+}
+
 int main(int argc, char *argv[]) {
-	if (argc != 8) {
-		printf("usage: %s train_data train_labels test_data test_labels hidden_layers lambda max_iter\n", argv[0]);
+	if (argc != 9) {
+		printf("usage: %s train_data train_labels test_data test_labels hidden_layers lambda max_iter percent_data_use\n", argv[0]);
 		return 0;
+	} else {
+		printf(color_cyan("params: %s %s %s %s %s %s %s %s\n"),
+					argv[1],
+					argv[2],
+					argv[3],
+					argv[4],
+					argv[5],
+					argv[6],
+					argv[7],
+					argv[8]);
 	}
 	srand(getpid());
+	// start timer
+	struct timeval start;
+	gettimeofday(&start, NULL);
+
 	print_green("load the matrices\n");
 	mat X, y;
 	int classes;
@@ -222,6 +270,11 @@ int main(int argc, char *argv[]) {
 	double lambda = strtod(argv[6], NULL);
 	int input_layer_size = (int)X.n_cols;
 	int hidden_layer_size = atoi(argv[5]);
+	double datapercent = strtod(argv[8], NULL) / 100.0;
+	if (datapercent != 1.0) {
+		print_green("Randomly selecting a portion of the training data\n");
+		randselect(X, y, (int)(datapercent * (double)(int)X.n_rows), X, y);
+	}
 
 	print_green("Training data...\n");
 	vec dims({ (double)input_layer_size, (double)hidden_layer_size, (double)classes });
@@ -233,8 +286,15 @@ int main(int argc, char *argv[]) {
 	print_green("Testing the training...\n");
 	opendata(X, y, classes, argv[3], argv[4]);
 	double conf, err;
-	class_err(X, y, thetas, conf, err);
+	mat confusion = class_err(X, y, thetas, conf, err);
 	print_green("Testing finished!\n");
 	printf(color_yellow("Conf: %lf/100, err: %lf/100\n"), conf * 100, err * 100);
+	cout << confusion << endl;
+
+	struct timeval end;
+	gettimeofday(&end, NULL);
+	double seconds = secdiff(start, end);
+	printf(color_magenta("Time taken: %lf seconds\n"), seconds);
+
 	return 0;
 }
