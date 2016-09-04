@@ -4,6 +4,22 @@ using namespace arma;
 
 int num_labels;
 
+void randselect(mat X, mat y, int n, mat &outX, mat &outy) {
+  std::vector<int> indeces;
+	for (int i = 0; i < (int)X.n_rows; i++) {
+		indeces.push_back(i);
+	}
+	random_shuffle(indeces.begin(), indeces.end());
+	mat _X_ = X;
+	mat _y_ = y;
+	outX = mat(n, X.n_cols);
+	outy = mat(n, 1);
+	for (int i = 0; i < n; i++) {
+		outX.row(i) = _X_.row(indeces[i]);
+		outy.row(i) = _y_.row(indeces[i]);
+	}
+}
+
 vec normal_eqn(mat X, vec y) {
   double m = (double)(int)y.n_rows;
   vec theta = pinv(X.t() * X) * X.t() * y;
@@ -120,6 +136,12 @@ int main(int argc, char *argv[]) {
 	opendata(X, Y, classes, argv[1], argv[2]);
 	num_labels = classes;
   vec y = Y.col(0);
+  double datapercent = strtod(argv[5], NULL) / 100.0;
+	if (datapercent != 1.0) {
+		print_green("Randomly selecting a portion of the training data\n");
+		randselect(X, y, (int)(datapercent * (double)(int)X.n_rows), X, y);
+	}
+
 	print_green("Training data...\n");
   X = join_rows(ones<vec>(X.n_rows), X);
   mat thetas(X.n_cols, classes);
