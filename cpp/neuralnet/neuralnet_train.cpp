@@ -4,6 +4,7 @@
 mat _X, _y;
 double _lambda;
 vec dimensions;
+//vector<double> allCosts;
 
 /** Select a random permutation of datapoints
  *  @param X the input data
@@ -97,20 +98,44 @@ void nnCostFunction(double &J, mat &grad, mat &nn_params) {
 	// compute the cost J
 	mat reg1 = theta1.cols(1,theta1.n_cols-1);
 	mat reg2 = theta2.cols(1,theta2.n_cols-1);
-	J = 1.0 / m * accu((-Y % log(A3) - (1.0 - Y) % log(1.0 - A3))) +
+	J = 1.0 / m * accu(-Y % log(A3) - (1.0 - Y) % log(1.0 - A3)) +
 		lambda / (2.0 * m) * (accu(reg1 % reg1) + accu(reg2 % reg2));
 
 	// compute the back propagation matrices
 	mat delta_3 = A3 - Y;
-	mat A2_grad = join_rows(ones<mat>(m, 1), sigmoidGradient(Z2));
-	mat delta_2 = (delta_3 * theta2) % A2_grad;
+	mat A2_grad = sigmoidGradient(Z2);
+	mat delta_2 = delta_3 * theta2;
+  delta_2 = delta_2.cols(1, delta_2.n_cols-1) % A2_grad;
 	theta2_grad = (delta_3.t() * A2) / m;
-	theta1_grad = (delta_2.cols(1, delta_2.n_cols-1).t() * A1) / m;
+	theta1_grad = (delta_2.t() * A1) / m;
 
 	// compute the regularization for the gradient
 	theta2_grad.cols(1, theta2_grad.n_cols-1) += lambda / m * theta2.cols(1, theta2.n_cols-1);
 	theta1_grad.cols(1, theta1_grad.n_cols-1) += lambda / m * theta1.cols(1, theta1.n_cols-1);
 	grad = join_cols(vectorise(theta1_grad), vectorise(theta2_grad));
+}
+
+/** A gradient descent function with a predefined alpha value
+ *  @param cost (output) the cost variable
+ *  @param max_iter the maximum number of iterations
+ *  @param nnCostFunction the cost function to run
+ *  @param theta
+ */
+void gradientDescent(double &cost, int max_iter, CostFunction costFn, mat theta) {
+  double J;
+  mat grad;
+  for (int i = 0; i < max_iter / 3; i++) {
+    double alpha = 0.1;
+    costFn(J, grad, theta);
+    theta -= alpha * grad;
+//    allCosts.push_back(J);
+  }
+  for (int i = 0; i < max_iter * 2 / 3; i++) {
+    double alpha = 0.01;
+    costFn(J, grad, theta);
+    theta -= alpha * grad;
+//    allCosts.push_back(J);
+  }
 }
 
 /** The calling function to train a bunch of thetas given X and y
@@ -136,6 +161,7 @@ vector<mat> nntrain(mat X, mat y, vector<mat> thetas, double lambda, int max_ite
 	_lambda = lambda;
 	double cost;
 	fmincg2(cost, max_iter, nnCostFunction, theta);
+  //gradientDescent(cost, max_iter, nnCostFunction, theta);
 
 	// reshape the thetas back to the way they were
 	int totalelem1 = (input_layer_size + 1) * hidden_layer_size;
@@ -258,7 +284,8 @@ int main(int argc, char *argv[]) {
 					argv[7],
 					argv[8]);
 	}
-	srand(getpid());
+  srand(9876);
+  arma_rng::set_seed(1423);
 	// start timer
 	struct timeval start;
 	gettimeofday(&start, NULL);
@@ -282,6 +309,12 @@ int main(int argc, char *argv[]) {
 	dimensions = dims;
 	thetas = nntrain(X, y, thetas, lambda, atoi(argv[7]));
 	print_green("Training finished!\n");
+
+//  print_red("\nCosts:\n");
+//  for (int i = 0; i < allCosts.size(); i++) {
+//    printf(color_red("\t%lf\n"), allCosts[i]);
+//  }
+//  print_red("\n");
 
 	print_green("Testing the training...\n");
 	opendata(X, y, classes, argv[3], argv[4]);
